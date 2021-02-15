@@ -44,6 +44,7 @@ function addReachable(
             const propDefinition = definition.properties![prop];
             addReachable(propDefinition, definitions, reachable, empties);
         }
+
         const additionalProperties = definition.additionalProperties;
         if (additionalProperties) {
             addReachable(additionalProperties, definitions, reachable, empties);
@@ -63,6 +64,7 @@ function addReachable(
 function isEmpty(ref: string, definitions: StringMap<Definition>): boolean {
     const target = definitions[decodeURIComponent(ref).slice(14)];
     if (target === null || target === undefined) {
+        console.log(`ref:${ref}:${target}`);
         return true;
     } else {
         const targetPropCount = Object.keys({ ...target }).length;
