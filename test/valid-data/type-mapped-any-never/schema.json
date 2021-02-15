@@ -1,18 +1,35 @@
 {
-    "$ref": "#/definitions/MyObject",
     "$schema": "http://json-schema.org/draft-07/schema#",
+    "$ref": "#/definitions/MyObject",
     "definitions": {
-        "Main<alias-1970614978-87-108-1970614978-0-347>": {
+        "MyObject": {
+            "type": "object",
             "additionalProperties": false,
             "properties": {
+                "whitelist": {
+                    "type": "object",
+                    "additionalProperties": false
+                },
+                "blacklist": {
+                    "$ref": "#/definitions/Main%3Calias-1970614978-87-108-1970614978-0-347%3E"
+                }
+            },
+            "required": [
+                "blacklist",
+                "whitelist"
+            ]
+        },
+        "Main<alias-1970614978-87-108-1970614978-0-347>": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "const": "MyId"
+                },
                 "a": {
                     "type": "string"
                 },
                 "b": {
-                    "type": "string"
-                },
-                "id": {
-                    "const": "MyId",
                     "type": "string"
                 }
             },
@@ -20,24 +37,7 @@
                 "id",
                 "a"
             ],
-            "type": "object"
-        },
-        "MyObject": {
-            "additionalProperties": false,
-            "properties": {
-                "blacklist": {
-                    "$ref": "#/definitions/Main%3Calias-1970614978-87-108-1970614978-0-347%3E"
-                },
-                "whitelist": {
-                    "additionalProperties": false,
-                    "type": "object"
-                }
-            },
-            "required": [
-                "blacklist",
-                "whitelist"
-            ],
-            "type": "object"
+            "additionalProperties": false
         }
     }
 }

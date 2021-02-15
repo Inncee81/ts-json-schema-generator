@@ -1,15 +1,9 @@
 {
-    "$ref": "#/definitions/MyAlias",
     "$schema": "http://json-schema.org/draft-07/schema#",
+    "$ref": "#/definitions/MyAlias",
     "definitions": {
-        "Map<MyAlias>": {
-            "additionalProperties": {
-                "$ref": "#/definitions/MyAlias"
-            },
-            "type": "object"
-        },
         "MyAlias": {
-            "additionalProperties": false,
+            "type": "object",
             "properties": {
                 "a": {
                     "$ref": "#/definitions/Map%3CMyAlias%3E"
@@ -18,7 +12,13 @@
             "required": [
                 "a"
             ],
-            "type": "object"
+            "additionalProperties": false
+        },
+        "Map<MyAlias>": {
+            "type": "object",
+            "additionalProperties": {
+                "$ref": "#/definitions/MyAlias"
+            }
         }
     }
 }

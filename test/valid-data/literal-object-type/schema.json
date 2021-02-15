@@ -1,19 +1,19 @@
 {
-    "$ref": "#/definitions/MyType",
     "$schema": "http://json-schema.org/draft-07/schema#",
+    "$ref": "#/definitions/MyType",
     "definitions": {
         "MyType": {
-            "additionalProperties": false,
+            "type": "object",
             "properties": {
                 "abc": {
-                    "const": "def",
-                    "type": "string"
+                    "type": "string",
+                    "const": "def"
                 }
             },
             "required": [
                 "abc"
             ],
-            "type": "object"
+            "additionalProperties": false
         }
     }
 }

@@ -1,12 +1,12 @@
 {
-    "$ref": "#/definitions/MyObject",
     "$schema": "http://json-schema.org/draft-07/schema#",
+    "$ref": "#/definitions/MyObject",
     "definitions": {
         "MyObject": {
-            "additionalProperties": false,
+            "type": "object",
             "properties": {
                 "field": {
-                    "additionalProperties": false,
+                    "type": "object",
                     "properties": {
                         "subfieldA": {
                             "type": "number"
@@ -18,19 +18,19 @@
                             ]
                         },
                         "subfieldC": {
-                            "additionalProperties": false,
+                            "type": "object",
                             "properties": {
                                 "subsubfieldA": {
+                                    "type": "array",
                                     "items": {
                                         "type": "number"
-                                    },
-                                    "type": "array"
+                                    }
                                 }
                             },
                             "required": [
                                 "subsubfieldA"
                             ],
-                            "type": "object"
+                            "additionalProperties": false
                         }
                     },
                     "required": [
@@ -38,13 +38,13 @@
                         "subfieldB",
                         "subfieldC"
                     ],
-                    "type": "object"
+                    "additionalProperties": false
                 }
             },
             "required": [
                 "field"
             ],
-            "type": "object"
+            "additionalProperties": false
         }
     }
 }
