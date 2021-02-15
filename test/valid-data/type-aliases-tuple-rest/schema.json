@@ -1,6 +1,5 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "$ref": "#/definitions/MyTuple",
     "definitions": {
         "MyTuple": {
             "type": "array",
@@ -20,5 +19,6 @@
                 "type": "number"
             }
         }
-    }
+    },
+    "$ref": "#/definitions/MyTuple"
 }

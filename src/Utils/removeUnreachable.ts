@@ -1,4 +1,5 @@
 import { JSONSchema7Definition } from "json-schema";
+import { isArray, isBoolean } from "util";
 import { Definition } from "./../Schema/Definition";
 import { StringMap } from "./StringMap";
 
@@ -7,7 +8,7 @@ function addReachable(
     definitions: StringMap<Definition>,
     reachable: Set<string>
 ) {
-    if (typeof definition === "boolean") {
+    if (isBoolean(definition)) {
         return;
     }
 
@@ -45,7 +46,7 @@ function addReachable(
         }
     } else if (definition.type === "array") {
         const items = definition.items;
-        if (Array.isArray(items)) {
+        if (isArray(items)) {
             for (const item of items) {
                 addReachable(item, definitions, reachable);
             }

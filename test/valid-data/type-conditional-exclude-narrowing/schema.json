@@ -1,46 +1,62 @@
 {
-    "$schema": "http://json-schema.org/draft-07/schema#",
     "$ref": "#/definitions/MyObject",
+    "$schema": "http://json-schema.org/draft-07/schema#",
     "definitions": {
+        "Align": {
+            "enum": [
+                "left",
+                "right",
+                "center"
+            ],
+            "type": "string"
+        },
+        "BadPrimitives": {
+            "type": [
+                "null",
+                "boolean"
+            ]
+        },
+        "GoodPrimitives": {
+            "type": [
+                "string",
+                "number"
+            ]
+        },
         "MyObject": {
-            "type": "object",
+            "additionalProperties": false,
             "properties": {
+                "allPrims": {
+                    "$ref": "#/definitions/Primitives"
+                },
+                "badPrims": {
+                    "$ref": "#/definitions/BadPrimitives"
+                },
+                "goodPrims": {
+                    "$ref": "#/definitions/GoodPrimitives"
+                },
+                "stringOrNull": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
                 "textWithoutAlign": {
-                    "type": "object",
+                    "additionalProperties": false,
                     "properties": {
                         "align": {
                             "type": "number"
                         }
                     },
-                    "additionalProperties": false
+                    "type": "object"
                 },
                 "textWithoutNumbers": {
-                    "type": "object",
+                    "additionalProperties": false,
                     "properties": {
                         "align": {
                             "$ref": "#/definitions/Align"
                         }
                     },
-                    "additionalProperties": false
-                },
-                "allPrims": {
-                    "$ref": "#/definitions/Primitives"
-                },
-                "goodPrims": {
-                    "$ref": "#/definitions/GoodPrimitives"
-                },
-                "badPrims": {
-                    "$ref": "#/definitions/BadPrimitives"
-                },
-                "stringOrNull": {
-                    "anyOf": [
-                        {
-                            "type": "string"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ]
+                    "type": "object"
                 }
             },
             "required": [
@@ -51,15 +67,7 @@
                 "badPrims",
                 "stringOrNull"
             ],
-            "additionalProperties": false
-        },
-        "Align": {
-            "type": "string",
-            "enum": [
-                "left",
-                "right",
-                "center"
-            ]
+            "type": "object"
         },
         "Primitives": {
             "anyOf": [
@@ -69,18 +77,6 @@
                 {
                     "$ref": "#/definitions/BadPrimitives"
                 }
-            ]
-        },
-        "GoodPrimitives": {
-            "type": [
-                "string",
-                "number"
-            ]
-        },
-        "BadPrimitives": {
-            "type": [
-                "null",
-                "boolean"
             ]
         }
     }

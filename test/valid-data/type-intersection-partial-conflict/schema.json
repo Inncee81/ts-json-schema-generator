@@ -3,17 +3,15 @@
     "$ref": "#/definitions/MyType",
     "definitions": {
         "MyType": {
-            "type": "object",
             "additionalProperties": false,
             "properties": {
                 "a": {
-                    "type": "string",
-                    "const": "hello"
+                    "const": "hello",
+                    "type": "string"
                 }
             },
-            "required": [
-                "a"
-            ]
+            "required": ["a"],
+            "type": "object"
         }
     }
 }

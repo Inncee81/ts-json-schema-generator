@@ -1,6 +1,5 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "$ref": "#/definitions/MyType",
     "definitions": {
         "MyType": {
             "anyOf": [
@@ -12,5 +11,6 @@
                 }
             ]
         }
-    }
+    },
+    "$ref": "#/definitions/MyType"
 }
