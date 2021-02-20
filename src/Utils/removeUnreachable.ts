@@ -27,53 +27,73 @@ function addReachable(
         }
     } else if (definition.anyOf) {
         for (const def of definition.anyOf) {
-            addReachable(def, definitions, reachable, empties);
+            if (Object.keys(def).length > 0) {
+                addReachable(def, definitions, reachable, empties);
+            }
         }
     } else if (definition.allOf) {
         for (const def of definition.allOf) {
-            addReachable(def, definitions, reachable, empties);
+            if (Object.keys(def).length > 0) {
+                addReachable(def, definitions, reachable, empties);
+            }
         }
     } else if (definition.oneOf) {
         for (const def of definition.oneOf) {
-            addReachable(def, definitions, reachable, empties);
+            if (Object.keys(def).length > 0) {
+                addReachable(def, definitions, reachable, empties);
+            }
         }
     } else if (definition.not) {
         addReachable(definition.not, definitions, reachable, empties);
     } else if (definition.type === "object") {
         for (const prop in definition.properties || {}) {
             const propDefinition = definition.properties![prop];
-            addReachable(propDefinition, definitions, reachable, empties);
+            if (Object.keys(propDefinition).length > 0) {
+                addReachable(propDefinition, definitions, reachable, empties);
+            }
         }
         const additionalProperties = definition.additionalProperties;
         if (additionalProperties) {
-            addReachable(additionalProperties, definitions, reachable, empties);
+            if (Object.keys(additionalProperties).length > 0) {
+                addReachable(additionalProperties, definitions, reachable, empties);
+            }
         }
     } else if (definition.type === "array") {
         const items = definition.items;
         if (Array.isArray(items)) {
             for (const item of items) {
-                addReachable(item, definitions, reachable, empties);
+                if (Object.keys(item).length > 0) {
+                    addReachable(item, definitions, reachable, empties);
+                }
             }
         } else if (items) {
-            addReachable(items, definitions, reachable, empties);
+            if (Object.keys(items).length > 0) {
+                addReachable(items, definitions, reachable, empties);
+            }
+        }
+        const additionalItems = definition.additionalItems;
+        if (additionalItems) {
+            if (Object.keys(additionalItems).length > 0) {
+                addReachable(additionalItems, definitions, reachable, empties);
+            }
         }
     }
 }
 
 function isEmpty(ref: string, definitions: StringMap<Definition>): boolean {
-    const target = definitions[decodeURIComponent(ref).slice(14)];
-    if (target === null || target === undefined) {
-        return true;
-    } else {
-        const targetPropCount = Object.keys({ ...target }).length;
-        if (targetPropCount === 0) {
-            return true;
-        } else if (target?.$ref) {
-            if (isEmpty(target.$ref!, definitions) && targetPropCount === 1) {
-                return true;
-            }
-        }
-    }
+    // const target = definitions[decodeURIComponent(ref).slice(14)];
+    // if (target === null || target === undefined) {
+    //     return true;
+    // } else {
+    //     const targetPropCount = Object.keys({ ...target }).length;
+    //     if (targetPropCount === 0) {
+    //         return true;
+    //     } else if (target?.$ref) {
+    //         if (isEmpty(target.$ref!, definitions) && targetPropCount === 1) {
+    //             return true;
+    //         }
+    //     }
+    // }
     return false;
 }
 
