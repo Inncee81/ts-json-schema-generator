@@ -3,7 +3,6 @@ import addFormats from "ajv-formats";
 import { readFileSync, writeFileSync } from "fs";
 import stringify from "json-stable-stringify";
 import { resolve } from "path";
-import stringify from "json-stable-stringify";
 import ts from "typescript";
 import { createFormatter } from "../factory/formatter";
 import { createParser } from "../factory/parser";

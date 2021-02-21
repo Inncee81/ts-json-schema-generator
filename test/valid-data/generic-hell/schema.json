@@ -128,8 +128,8 @@
           "const": "alias",
           "type": "string"
         },
-        "SomeAlias<\"alias\">": {
-            "$ref": "#/definitions/SomeGeneric%3C%22alias%22%2C%22alias%22%3E"
+        "c": {
+          "$ref": "#/definitions/GenericA%3C%22alias%22%3E"
         },
         "d": {
           "$ref": "#/definitions/GenericC%3C%22alias%22%3E"
