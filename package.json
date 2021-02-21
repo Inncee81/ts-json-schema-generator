@@ -86,6 +86,7 @@
     "test:coverage": "yarn jest test/ --collectCoverage=true",
     "test:update": "cross-env UPDATE_SCHEMA=true test",
     "debug": "node -r ts-node/register --inspect-brk ts-json-schema-generator.ts",
+    "dbg": "node -r ts-node/register --inspect-brk ts-json-schema-generator.ts -p test/valid-data/type-mapped-any-never/main.ts -t MyObject",
     "run": "ts-node ts-json-schema-generator.ts"
   },
   "release": {
