@@ -1,6 +1,7 @@
 import Ajv from "ajv";
 import addFormats from "ajv-formats";
 import { readFileSync, writeFileSync } from "fs";
+import stringify from "json-stable-stringify";
 import { resolve } from "path";
 import stringify from "json-stable-stringify";
 import ts from "typescript";
@@ -50,7 +51,7 @@ export function assertValidSchema(
         if (process.env.UPDATE_SCHEMA) {
             writeFileSync(
                 resolve(`${basePath}/${relativePath}/schema.json`),
-                stringify(schema, { space: 4 }) + "\n",
+                stringify(schema, { space: 2 }) + "\n",
                 "utf8"
             );
         }
