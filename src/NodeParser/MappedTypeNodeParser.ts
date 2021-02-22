@@ -64,6 +64,29 @@ export class MappedTypeNodeParser implements SubNodeParser {
                 false,
                 node.getSourceFile().fileName
             );
+        } else if (keyListType instanceof AnyType) {
+            // Example:
+            //     export interface Derived<
+            //         ID extends string,
+            //         KEYS extends keyof Base<ID> = any,
+            //     > {
+            //       inner: Readonly<Pick<Derived<ID>, KEYS>>;
+            //     }
+            // We come here with the KEYS=`never`
+            // The simplest thing to do it to return the first argument here!
+            return context.getArguments()[0];
+        } else if (keyListType instanceof NeverType) {
+            // Example:
+            //     export interface Derived<
+            //         ID extends string,
+            //         KEYS extends keyof Base<ID> = never,
+            //     > {
+            //       inner: Readonly<Pick<Derived<ID>, KEYS>>;
+            //     }
+            // We come here with the KEYS=`never`
+            // The simplest thing to do it to create a new Object with id, but no props.
+            const props: ObjectProperty[] = []; // we don't allow any propertiess
+            return new ObjectType(id, [], props, false, node.getSourceFile().fileName);
         } else {
             throw new LogicError(
                 // eslint-disable-next-line max-len

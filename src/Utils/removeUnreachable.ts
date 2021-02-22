@@ -1,4 +1,5 @@
 import { JSONSchema7Definition } from "json-schema";
+import { isBoolean } from "util";
 import { Definition } from "./../Schema/Definition";
 import { StringMap } from "./StringMap";
 
