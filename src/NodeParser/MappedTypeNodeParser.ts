@@ -37,43 +37,33 @@ export class MappedTypeNodeParser implements SubNodeParser {
                 id,
                 [],
                 this.getProperties(node, keyListType, context),
-                this.getAdditionalProperties(node, keyListType, context)
+                this.getAdditionalProperties(node, keyListType, context),
+                node.getSourceFile().fileName
             );
         } else if (keyListType instanceof LiteralType) {
             // Key type resolves to single known property
-            return new ObjectType(id, [], this.getProperties(node, new UnionType([keyListType]), context), false);
+            return new ObjectType(
+                id,
+                [],
+                this.getProperties(node, new UnionType([keyListType]), context),
+                false,
+                node.getSourceFile().fileName
+            );
         } else if (keyListType instanceof StringType || keyListType instanceof SymbolType) {
             // Key type widens to `string`
             const type = this.childNodeParser.createType(node.type!, context);
-            return type === undefined ? undefined : new ObjectType(id, [], [], type);
+            return type === undefined ? undefined : new ObjectType(id, [], [], type, node.getSourceFile().fileName);
         } else if (keyListType instanceof NumberType) {
             const type = this.childNodeParser.createType(node.type!, this.createSubContext(node, keyListType, context));
             return type === undefined ? undefined : new ArrayType(type);
         } else if (keyListType instanceof EnumType) {
-            return new ObjectType(id, [], this.getValues(node, keyListType, context), false);
-        } else if (keyListType instanceof AnyType) {
-            // Example:
-            //     export interface Derived<
-            //         ID extends string,
-            //         KEYS extends keyof Base<ID> = any,
-            //     > {
-            //       inner: Readonly<Pick<Derived<ID>, KEYS>>;
-            //     }
-            // We come here with the KEYS=`never`
-            // The simplest thing to do it to return the first argument here!
-            return context.getArguments()[0];
-        } else if (keyListType instanceof NeverType) {
-            // Example:
-            //     export interface Derived<
-            //         ID extends string,
-            //         KEYS extends keyof Base<ID> = never,
-            //     > {
-            //       inner: Readonly<Pick<Derived<ID>, KEYS>>;
-            //     }
-            // We come here with the KEYS=`never`
-            // The simplest thing to do it to create a new Object with id, but no props.
-            const props: ObjectProperty[] = []; // we don't allow any propertiess
-            return new ObjectType(id, [], props, false);
+            return new ObjectType(
+                id,
+                [],
+                this.getValues(node, keyListType, context),
+                false,
+                node.getSourceFile().fileName
+            );
         } else {
             throw new LogicError(
                 // eslint-disable-next-line max-len

@@ -8,7 +8,7 @@ function addReachable(
     reachable: Set<string>,
     empties: Set<string>
 ) {
-    if (typeof definition === "boolean" || Object.keys(definition).length === 0) {
+    if (!definition || isBoolean(definition)) {
         return;
     }
 
