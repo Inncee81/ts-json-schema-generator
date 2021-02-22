@@ -1,7 +1,7 @@
 {
-  "name": "ts-json-schema-generator",
-  "version": "0.86.1",
-  "description": "Generate JSON schema from your Typescript sources",
+  "name": "@tufan-io/ts-json-schema-generator",
+  "version": "0.1.0",
+  "description": "Generate JSON schema from your Typescript sources (tufan-io fork)",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "bin": {
